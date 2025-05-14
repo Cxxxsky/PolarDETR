@@ -1,0 +1,34 @@
+# Configuration for BioClinicalBERT fine-tuning
+
+# Model configuration
+model:
+  # Pretrained model name or path (BioClinicalBERT)
+  pretrained: "emilyalsentzer/Bio_ClinicalBERT"
+  # Whether to freeze BERT parameters
+  freeze_bert: false
+  # Path to save the fine-tuned model
+  save_path: "./jawbone_bioclinicalbert"
+
+# Data configuration
+data:
+  # Path to training data
+  train_path: "data/dental_entities_train.json"
+  # Path to validation data (optional, if not provided, train data will be split)
+  val_path: "data/dental_entities_val.json"
+  # Maximum sequence length
+  max_length: 128
+
+# Training configuration
+training:
+  # Number of training epochs
+  epochs: 10
+  # Batch size
+  batch_size: 16
+  # Learning rate
+  learning_rate: 2.0e-5
+  # Weight decay
+  weight_decay: 0.01
+  # Warmup ratio
+  warmup_ratio: 0.1
+  # Number of workers for data loading
+  num_workers: 4 

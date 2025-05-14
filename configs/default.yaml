@@ -1,0 +1,87 @@
+# Default configuration for PolarDETR
+
+# Data settings
+data:
+  train_path: "data/train"
+  val_path: "data/val"
+  test_path: "data/test"
+  batch_size: 4
+  num_workers: 4
+  image_size: [512, 512]
+  pixel_size: 0.1  # mm per pixel
+
+# Model settings
+model:
+  # Text encoder settings
+  text_encoder:
+    name: "BioClinicalBERT"
+    pretrained: "./jawbone_bioclinicalbert"
+    freeze: false
+    dim: 768
+
+  # Image encoder settings
+  image_encoder:
+    name: "resnet50"
+    pretrained: true
+    freeze_backbone: false
+    
+  # DETR decoder settings
+  decoder:
+    dim: 256
+    nhead: 8
+    num_decoder_layers: 6
+    num_queries: 100
+    
+  # Polar Text-Position Encoding
+  ptpe:
+    enabled: true
+    projection_dim: 256
+    
+  # Anatomical constraint settings
+  anatomy:
+    enabled: true
+    num_regions: 8
+    regions: ["mandibular_canal", "alveolar_ridge", "maxillary_sinus", 
+              "mental_foramen", "inferior_alveolar_nerve", "apical_lesion_region",
+              "impacted_tooth_region", "temporomandibular_joint"]
+    prior_distributions: {
+      "apical_lesion_region": 0.8,
+      "alveolar_ridge": 0.7,
+      "mandibular_canal": 0.5,
+      "maxillary_sinus": 0.4,
+      "mental_foramen": 0.3,
+      "inferior_alveolar_nerve": 0.4,
+      "impacted_tooth_region": 0.5,
+      "temporomandibular_joint": 0.2
+    }
+
+# Loss function weights
+loss:
+  lambda_detr: 1.0
+  lambda_anatomy: 2.0
+  lambda_position: 3.0
+  
+  # DETR loss components
+  box_loss_weight: 5.0
+  giou_loss_weight: 2.0
+  cls_loss_weight: 2.0
+  
+  # Position matching
+  position_match_threshold: 0.5
+  delta_r: 5  # pixels
+  delta_theta: 10  # degrees
+
+# Training settings
+training:
+  lr: 2.0e-4
+  weight_decay: 1.0e-4
+  lr_drop: 20
+  epochs: 200
+  clip_max_norm: 0.1
+  
+# Evaluation settings
+evaluation:
+  score_threshold: 0.7
+  nms_threshold: 0.5
+  acs_threshold: 0.5  # Anatomical Consistency Score threshold
+  pms_threshold: 0.5  # Position Matching Score threshold 
