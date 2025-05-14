@@ -28,7 +28,7 @@ PolarDETR/
 │   ├── fdi_parser.py               # FDI tooth notation parser
 │   ├── metrics.py                  # Evaluation metrics
 │   └── visualization.py            # Visualization utilities
-├── main.py                         # Main training script
+├── train.py                         # Main training script
 ├── inference.py                    # Inference script
 ├── demo.py                         # Demo script for PTPE visualization
 ├── requirements.txt                # Dependencies
