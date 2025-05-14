@@ -17,7 +17,7 @@ PolarDETR/
 ├── configs/                        # Configuration files
 ├── data/                           # Data preprocessing and loading utilities
 │   ├── dataset.py                  # Dataset for main model training
-│   └── FDI_MATCH.xml               # FDI tooth notation to angle mapping
+│   └── FDI_MATCH.xml               # FDI tooth notation to angle mapping (Be provided after accepted)
 ├── models/                         # Model architecture components
 │   ├── decoders/                   # DETR decoder with position enhancements
 │       ├── position_matching.py    # Position Matching Optimization
